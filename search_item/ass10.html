@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Product Search Filter</title>
+
+  <style>
+    #productGrid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .productBox {
+      padding: 10px;
+      border: 1px solid black;
+      border-radius: 5px;
+    }
+
+    #search {
+      padding: 8px;
+      width: 250px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Product Search Filter</h2>
+
+  <input id="search" type="text" placeholder="Search products...">
+
+  <div id="productGrid"></div>
+
+  <script src="ass10.js"></script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>More Reasons to Join</title>
+  <style>
+    body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #000;
+  color: #fff;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 0 20px;
+}
+
+h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.card {
+  background: linear-gradient(145deg, #1a1a2e, #251b39);
+  padding: 20px;
+  border-radius: 12px;
+  flex: 1 1 22%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 240px;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 14px;
+  line-height: 1.5;
+  flex-grow: 1;
+}
+
+.card img {
+  width: 40px;
+  margin-top: 20px;
+  align-self: flex-end;
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>More reasons to join</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>Enjoy on your TV</h3>
+        <p>Watch on smart TVs, PlayStation, Xbox, Chromecast, Apple TV, Blu-ray players and more.</p>
+        <img src="tv-icon.png" alt="TV Icon">
+      </div>
+      <div class="card">
+        <h3>Download your shows to watch offline</h3>
+        <p>Save your favourites easily and always have something to watch.</p>
+        <img src="download-icon.png" alt="Download Icon">
+      </div>
+      <div class="card">
+        <h3>Watch everywhere</h3>
+        <p>Stream unlimited movies and TV shows on your phone, tablet, laptop and TV.</p>
+        <img src="watch-icon.png" alt="Watch Icon">
+      </div>
+      <div class="card">
+        <h3>Create profiles for kids</h3>
+        <p>Send kids on adventures with their favourite characters in a space made just for them — free with your membership.</p>
+        <img src="kids-icon.png" alt="Kids Icon">
+      </div>
+    </div>
+  </div>
+</body>
+</html>
