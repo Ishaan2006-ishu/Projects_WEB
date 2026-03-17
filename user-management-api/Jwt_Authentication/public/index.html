@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Login</title>
+<title>Register</title>
 
 <style>
 body{
     font-family: Arial;
-    background: linear-gradient(135deg,#667eea,#764ba2);
+    background: linear-gradient(135deg,#4facfe,#00f2fe);
     height:100vh;
     display:flex;
     justify-content:center;
@@ -36,7 +36,7 @@ input{
 button{
     width:100%;
     padding:10px;
-    background:#667eea;
+    background:#4facfe;
     color:white;
     border:none;
     border-radius:5px;
@@ -44,7 +44,7 @@ button{
 }
 
 button:hover{
-    background:#4a5bd1;
+    background:#2a8df0;
 }
 
 .link{
@@ -59,15 +59,16 @@ button:hover{
 
 <div class="card">
 
-<h2>Login</h2>
+<h2>Register</h2>
 
+<input id="name" placeholder="First Name">
 <input id="email" placeholder="Email">
 <input id="password" type="password" placeholder="Password">
 
-<button onclick="login()">Login</button>
+<button onclick="register()">Register</button>
 
 <div class="link">
-New user? <a href="index.html">Register</a>
+Already have account? <a href="login.html">Login</a>
 </div>
 
 </div>

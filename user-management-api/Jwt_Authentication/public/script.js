@@ -1,74 +1,88 @@
-async function register(){
+async function register() {
+    const firstName = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
-const firstName=document.getElementById("name").value;
-const email=document.getElementById("email").value;
-const password=document.getElementById("password").value;
+    try {
+        const res = await fetch("/user/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ firstName, email, password })
+        });
 
-await fetch("/user/register",{
+        const data = await res.json();
 
-method:"POST",
+        if (!res.ok) {
+            alert("Registration failed: " + data.msg);
+            return;
+        }
 
-headers:{
-"Content-Type":"application/json"
-},
+        alert("User Registered");
+        window.location.href = "login.html";
+    } catch (err) {
+        alert("Network error: " + err.message);
+    }
+}
 
-body:JSON.stringify({firstName,email,password})
+async function login() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
-});
+    try {
+        const res = await fetch("/user/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password })
+        });
 
-alert("User Registered");
+        const data = await res.json();
 
+        if (!res.ok) {
+            alert("Login failed: " + data.msg);
+            return;
+        }
+
+        localStorage.setItem("token", data.token);
+        window.location.href = "dashboard.html";
+    } catch (err) {
+        alert("Network error: " + err.message);
+    }
+}
+
+async function loadUsers() {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    try {
+        const res = await fetch("/user", {
+            headers: { Authorization: "Bearer " + token }
+        });
+
+        if (res.status === 401) {
+            localStorage.removeItem("token");
+            window.location.href = "login.html";
+            return;
+        }
+
+        const users = await res.json();
+        const div = document.getElementById("users");
+
+        users.forEach(u => {
+            const p = document.createElement("p");
+            p.textContent = `${u.firstName} - ${u.email}`;
+            div.appendChild(p);
+        });
+    } catch (err) {
+        alert("Failed to load users: " + err.message);
+    }
 }
 
 
-async function login(){
-
-const email=document.getElementById("email").value;
-const password=document.getElementById("password").value;
-
-const res=await fetch("/user/login",{
-
-method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify({email,password})
-
-});
-
-const data=await res.json();
-
-localStorage.setItem("token",data.token);
-
-window.location.href="dashboard.html";
-
-}
-
-
-async function loadUsers(){
-
-const token=localStorage.getItem("token");
-
-const res=await fetch("/user",{
-
-headers:{
-Authorization:token
-}
-
-});
-
-const users=await res.json();
-
-const div=document.getElementById("users");
-
-users.forEach(u=>{
-div.innerHTML+=`<p>${u.firstName} - ${u.email}</p>`;
-});
-
-}
-
-if(window.location.pathname.includes("dashboard")){
-loadUsers();
+function logout(){
+    localStorage.removeItem("token");
+    window.location.href="login.html";
 }

@@ -1,16 +1,21 @@
 const jwt = require("jsonwebtoken");
 
+const JWT_SECRET = process.env.JWT_SECRET || "secret123";
+
 function verifyToken(req,res,next){
 
-    const token = req.headers.authorization;
+    const authHeader = req.headers.authorization;
 
-    if(!token){
+    if(!authHeader){
         return res.status(401).json({msg:"No token provided"});
     }
 
+    // support both "Bearer <token>" and raw token
+    const token = authHeader.startsWith("Bearer ") ? authHeader.slice(7) : authHeader;
+
     try{
 
-        const decoded = jwt.verify(token,"secret123");
+        const decoded = jwt.verify(token, JWT_SECRET);
         req.user = decoded;
 
         next();

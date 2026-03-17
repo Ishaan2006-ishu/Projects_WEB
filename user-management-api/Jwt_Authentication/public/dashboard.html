@@ -2,13 +2,62 @@
 <html>
 <head>
 <title>Dashboard</title>
+
+<style>
+
+body{
+    font-family:Arial;
+    background:#f4f6f9;
+    padding:40px;
+}
+
+h2{
+    text-align:center;
+}
+
+.container{
+    max-width:600px;
+    margin:auto;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 10px 20px rgba(0,0,0,0.1);
+}
+
+.user{
+    padding:10px;
+    border-bottom:1px solid #eee;
+}
+
+button{
+    margin-top:15px;
+    padding:10px;
+    background:#ff4b5c;
+    border:none;
+    color:white;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#e63946;
+}
+
+</style>
+
 </head>
 
-<body>
+<body onload="loadUsers()">
+
+<div class="container">
 
 <h2>Users</h2>
 
 <div id="users"></div>
+
+<button onclick="logout()">Logout</button>
+
+</div>
 
 <script src="script.js"></script>
 

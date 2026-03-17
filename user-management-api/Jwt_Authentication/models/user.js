@@ -33,23 +33,24 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    lastName:{
-        type:String
-    },
+    // lastName:{
+    //     type:String
+    // },
     email:{
         type:String,
         required:true,
         unique:true
     },
     password:{
-        type:String
+        type:String,
+        required:true
     },
-    jobTitle:{
-        type:String
-    },
-    gender:{
-        type:String
-    }
+    // jobTitle:{
+    //     type:String
+    // },
+    // gender:{
+    //     type:String
+    // }
 });
 
 const User = mongoose.model("User", userSchema);

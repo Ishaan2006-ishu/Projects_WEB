@@ -12,18 +12,24 @@
 // module.export=router;
 
 const express = require("express");
+const verifyToken = require("../middlewares/auth");
 
 const {
 handleGetAllUsers,
 handleGetUserById,
 handleDeleteUserById,
-handleCreateNewUser
+handleCreateNewUser,
+handleRegister,
+handleLogin
 } = require("../controllers/user");
 
 const router = express.Router();
 
+router.post("/register", handleRegister);
+router.post("/login", handleLogin);
+
 router.route("/")
-.get(handleGetAllUsers)
+.get(verifyToken, handleGetAllUsers)
 .post(handleCreateNewUser);
 
 router.route("/:id")

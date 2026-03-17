@@ -53,6 +53,10 @@
 // }
 
 const User = require("../models/user");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+
+const JWT_SECRET = process.env.JWT_SECRET || "secret123";
 
 async function handleGetAllUsers(req,res){
 
@@ -106,9 +110,51 @@ async function handleCreateNewUser(req,res){
 
 }
 
+async function handleRegister(req, res) {
+    const { firstName, email, password } = req.body;
+
+    if (!firstName || !email || !password) {
+        return res.status(400).json({ msg: "firstName, email and password are required" });
+    }
+
+    const existing = await User.findOne({ email });
+    if (existing) {
+        return res.status(409).json({ msg: "Email already registered" });
+    }
+
+    const hashed = await bcrypt.hash(password, 10);
+    const user = await User.create({ firstName, email, password: hashed });
+
+    return res.status(201).json({ msg: "User registered", id: user._id });
+}
+
+async function handleLogin(req, res) {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+        return res.status(400).json({ msg: "Email and password are required" });
+    }
+
+    const user = await User.findOne({ email });
+    if (!user) {
+        return res.status(401).json({ msg: "Invalid credentials" });
+    }
+
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) {
+        return res.status(401).json({ msg: "Invalid credentials" });
+    }
+
+    const token = jwt.sign({ id: user._id, email: user.email }, JWT_SECRET, { expiresIn: "1d" });
+
+    return res.json({ token });
+}
+
 module.exports = {
     handleGetAllUsers,
     handleGetUserById,
     handleDeleteUserById,
-    handleCreateNewUser
+    handleCreateNewUser,
+    handleRegister,
+    handleLogin
 };
